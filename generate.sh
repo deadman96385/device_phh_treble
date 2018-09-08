@@ -15,7 +15,7 @@ fi
 echo 'PRODUCT_MAKEFILES := \' > AndroidProducts.mk
 
 for part in a ab;do
-	for apps in vanilla gapps foss gapps-go;do
+	for apps in vanilla gapps foss gapps-go gapps-tv;do
 		for arch in arm64 arm;do
 			for su in yes no;do
 				apps_suffix=""
@@ -32,6 +32,11 @@ for part in a ab;do
 					apps_suffix="o"
 					apps_script='$(call inherit-product, device/phh/treble/gapps-go.mk)'
 					apps_name="Go"
+				fi
+				if [ "$apps" == "gapps-tv" ];then
+					apps_suffix="t"
+					apps_script='$(call inherit-product, device/phh/treble/gapps-tv.mk)'
+					apps_name="TV"
 				fi
 				if [ "$apps" == "foss" ];then
 					apps_suffix="f"
